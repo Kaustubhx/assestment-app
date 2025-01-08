@@ -5,23 +5,20 @@ import Header from '@/components/Header'
 
 type Props = {}
 
-const RootLayout = ({ }: Props) => {
+const AuthLayout = ({ }: Props) => {
     return (
         <Stack>
             <Stack.Screen
-                name='sign-in'
+                name='home'
                 options={{
+                    headerBackVisible: false,
                     headerTitle: () => (
                         <Header />
                     )
                 }}
             />
-
-            <Stack.Screen
-                name='sign-up'
-            />
         </Stack>
     )
 }
 
-export default RootLayout
+export default AuthLayout

@@ -16,3 +16,11 @@ export const NAV_THEME = {
         text: 'hsl(0 0% 98%)', // foreground
     },
 };
+
+export const STORAGE_KEYS = {
+    USER_NAME_KEY: "userName",
+    USER_PASS_KEY: "userPass",
+    USER_EMAIL_KEY: "userEmail",
+    USER_ADDRESS_KEY: "userAddress",
+    USER_PHONE_KEY: "userPhone",
+}
