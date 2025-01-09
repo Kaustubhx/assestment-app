@@ -45,7 +45,12 @@ const HomeScreen = ({ }: Props) => {
         <SafeAreaView className='bg-white flex-1'>
             <View className='p-4 items-center justify-center flex-1'>
                 <Text className='text-center my-4 text-lg'>
-                    Hello, {userName} we got your location as you requested :D
+                    Hello, {userName}{" "}
+                    {status?.granted && (
+                        <Text className='text-center my-4 text-lg'>
+                            we got your location as you requested :D
+                        </Text>
+                    )}
                 </Text>
 
                 {location?.coords && (
