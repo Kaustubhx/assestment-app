@@ -1,14 +1,16 @@
 import { ToastAndroid, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
 import { useForm, Controller, FieldValues, SubmitHandler } from "react-hook-form"
+import { router } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import { Text } from '@/components/ui/text'
+import { STORAGE_KEYS } from '@/libs/constants'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { router } from 'expo-router'
-import { Text } from '@/components/ui/text'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { STORAGE_KEYS } from '@/libs/constants'
+
+import * as Location from 'expo-location';
 
 type Props = {}
 
@@ -30,13 +32,21 @@ const SignInScreen = ({ }: Props) => {
         router.navigate("/sign-up")
     };
 
+    const requestUserLocation = async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync()
+    }
+
     const handleUserSignIn: SubmitHandler<SignInTypes | FieldValues> = async (formData) => {
 
         const values = await AsyncStorage.multiGet([STORAGE_KEYS.USER_EMAIL_KEY, STORAGE_KEYS.USER_PASS_KEY, STORAGE_KEYS.USER_PHONE_KEY])
 
         const { userEmail, userPass, userPhone } = Object.fromEntries(values);
 
-        if ((userEmail && userPhone != formData.userCred) || (userPass != formData.userPass)) {
+        const isCredValid =
+            (formData.userCred === userEmail || formData.userCred === userPhone) &&
+            formData.userPass === userPass;
+
+        if (!isCredValid) {
             setError("userCred", {
                 type: "custom",
                 message: "Invalid email / phonenumber or password."
@@ -45,8 +55,10 @@ const SignInScreen = ({ }: Props) => {
                 type: "custom",
                 message: "Invalid email / phonenumber or password."
             });
+            return;
         };
 
+        requestUserLocation();
         router.replace("/home");
     };
 
@@ -75,7 +87,11 @@ const SignInScreen = ({ }: Props) => {
                                 />
                             )}
                         />
-                        {errors.userCred && <Text className='text-red-500 my-1'>{errors.userCred.message?.toString()}</Text>}
+                        {errors.userCred?.type === "required" ? (
+                            <Text className='text-red-500 my-1'>Please enter your credentials</Text>
+                        ) : (
+                            <Text className='text-red-500 mt-1'>{errors.userCred?.message}</Text>
+                        )}
                     </View>
 
                     <View>
@@ -95,11 +111,12 @@ const SignInScreen = ({ }: Props) => {
                                 />
                             )}
                         />
-                        {errors.userPass && <Text className='text-red-500 my-1'>{errors.userPass.message?.toString()}</Text>}
+                        {errors.userPass?.type === "required" && <Text className='text-red-500 my-1'>Please enter your password</Text>}
+                        {errors.userPass && <Text className='text-red-500 mt-1'>{errors.userPass.message?.toString()}</Text>}
                     </View>
                 </View>
 
-                <View className='mt-10'>
+                <View className='mt-5'>
                     <Button
                         className='bg-red-400 rounded-full'
                         size={"lg"}

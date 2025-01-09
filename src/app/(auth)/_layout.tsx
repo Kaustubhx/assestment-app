@@ -12,7 +12,7 @@ const RootLayout = ({ }: Props) => {
                 name='sign-in'
                 options={{
                     headerTitle: () => (
-                        <Header />
+                        <Header title='Welcome User 😃' />
                     )
                 }}
             />
@@ -21,7 +21,7 @@ const RootLayout = ({ }: Props) => {
                 name='sign-up'
                 options={{
                     headerTitle: () => (
-                        <Header />
+                        <Header title='Welcome User 😃' />
                     )
                 }}
             />

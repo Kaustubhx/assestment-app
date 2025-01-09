@@ -1,7 +1,10 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '@/libs/constants';
+import { Button } from './ui/button';
+import { Redirect, router } from 'expo-router';
+import { useRoute } from '@react-navigation/native';
 
 type Props = {
     headerBackVisible?: boolean,
@@ -11,6 +14,8 @@ type Props = {
 const Header = ({ headerBackVisible, title }: Props) => {
 
     const [userName, setUserName] = useState<string | null>();
+
+    const route = useRoute();
 
     useEffect(() => {
         getUserName();
@@ -22,12 +27,10 @@ const Header = ({ headerBackVisible, title }: Props) => {
     };
 
     return (
-        <View>
-            <View>
-                <Text className='text-2xl font-medium'>
-                    {title || `Welcome ${userName || "User"} 😃`}
-                </Text>
-            </View>
+        <View className='flex-row items-center justify-between w-[98%]'>
+            <Text className='text-2xl font-medium'>
+                {title || `Welcome ${userName || "User"} 😃`}
+            </Text>
         </View>
     )
 }

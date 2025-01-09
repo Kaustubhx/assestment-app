@@ -17,6 +17,15 @@ const AuthLayout = ({ }: Props) => {
                     )
                 }}
             />
+
+            <Stack.Screen
+                name='usersList'
+                options={{
+                    headerTitle: () => (
+                        <Header title='Explore Users' />
+                    )
+                }}
+            />
         </Stack>
     )
 }

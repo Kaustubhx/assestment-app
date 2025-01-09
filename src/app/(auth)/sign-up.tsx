@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
 import { Textarea } from '@/components/ui/textarea'
 import { STORAGE_KEYS } from '@/libs/constants'
+import { router } from 'expo-router';
 
 type Props = {}
 
@@ -43,6 +44,7 @@ const SignUpScreen = ({ }: Props) => {
         await AsyncStorage.multiSet([userNamePair, userPhonePair, userEmailPair, userPassPair, userAddressPair])
             .then((res) => {
                 ToastAndroid.show("Registration successful", ToastAndroid.SHORT);
+                router.navigate("/sign-in")
             })
             .catch((err) => {
                 ToastAndroid.show("Something went wrong while registration " + err, ToastAndroid.LONG);
@@ -112,6 +114,7 @@ const SignUpScreen = ({ }: Props) => {
                                         placeholder='E-mail Address'
                                         placeholderTextColor={"#EAEAEA"}
                                         value={value}
+                                        keyboardType='email-address'
                                         onChangeText={onChange}
                                         className='rounded-full pl-6'
                                     />
