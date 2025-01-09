@@ -10,7 +10,6 @@ export default function Index() {
 
   const getLocalUser = async () => {
     const localUserName = await AsyncStorage.getItem(STORAGE_KEYS.USER_NAME_KEY);
-    console.log(localUserName, "LOCAL_NAME");
     setLocalUser(localUserName);
   };
 
