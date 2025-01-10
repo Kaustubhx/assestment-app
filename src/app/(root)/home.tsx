@@ -20,7 +20,7 @@ const HomeScreen = ({ }: Props) => {
     useEffect(() => {
         getUserName();
         getCurrentLocation();
-    }, [])
+    }, [status]);
 
     const getUserName = async () => {
         const localUserName = await AsyncStorage.getItem(STORAGE_KEYS.USER_NAME_KEY)
@@ -44,10 +44,10 @@ const HomeScreen = ({ }: Props) => {
     return (
         <SafeAreaView className='bg-white flex-1'>
             <View className='p-4 items-center justify-center flex-1'>
-                <Text className='text-center my-4 text-lg'>
+                <Text className='text-center my-4 text-lg text-black'>
                     Hello, {userName}{" "}
                     {status?.granted && (
-                        <Text className='text-center my-4 text-lg'>
+                        <Text className='text-center my-4 text-lg text-black'>
                             we got your location as you requested :D
                         </Text>
                     )}
@@ -55,10 +55,10 @@ const HomeScreen = ({ }: Props) => {
 
                 {location?.coords && (
                     <>
-                        <Text>
+                        <Text className='text-black'>
                             Latitude: <Text className='font-medium text-red-400'>{location?.coords.latitude}</Text>
                         </Text>
-                        <Text>
+                        <Text className='text-black'>
                             Longitude: <Text className='font-medium text-red-400'>{location?.coords.longitude}</Text>
                         </Text>
                     </>
@@ -69,7 +69,6 @@ const HomeScreen = ({ }: Props) => {
                         Sorry. It seems that you didn't give us the required permission for location
                     </Text>
                 )}
-
 
                 <Button
                     className='my-8'

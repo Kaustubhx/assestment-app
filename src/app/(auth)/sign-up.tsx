@@ -44,7 +44,7 @@ const SignUpScreen = ({ }: Props) => {
         await AsyncStorage.multiSet([userNamePair, userPhonePair, userEmailPair, userPassPair, userAddressPair])
             .then((res) => {
                 ToastAndroid.show("Registration successful", ToastAndroid.SHORT);
-                router.navigate("/sign-in")
+                router.back();
             })
             .catch((err) => {
                 ToastAndroid.show("Something went wrong while registration " + err, ToastAndroid.LONG);
@@ -74,7 +74,7 @@ const SignUpScreen = ({ }: Props) => {
                                         placeholderTextColor={"#EAEAEA"}
                                         value={value}
                                         onChangeText={onChange}
-                                        className='rounded-full pl-6'
+                                        className='rounded-full pl-6 bg-white text-black'
                                     />
                                 )}
                             />
@@ -86,7 +86,9 @@ const SignUpScreen = ({ }: Props) => {
                                 name='userPhone'
                                 control={control}
                                 rules={{
-                                    required: true
+                                    required: true,
+                                    maxLength: 10,
+                                    minLength: 10
                                 }}
                                 render={({ field: { onBlur, onChange, value } }) => (
                                     <Input
@@ -95,11 +97,12 @@ const SignUpScreen = ({ }: Props) => {
                                         placeholderTextColor={"#EAEAEA"}
                                         value={value}
                                         onChangeText={onChange}
-                                        className='rounded-full pl-6'
+                                        className='rounded-full pl-6 bg-white text-black'
                                     />
                                 )}
                             />
-                            {errors.userPhone?.type == "required" && <Text className='text-red-500 text-sm my-1'>Please enter your full name</Text>}
+                            {errors.userPhone?.type == "required" && <Text className='text-red-500 text-sm my-1'>Please enter your phone number</Text>}
+                            {errors.userPhone && <Text className='text-red-500 text-sm my-1'>{errors.userPhone.message?.toString()}</Text>}
                         </View>
 
                         <View>
@@ -116,11 +119,11 @@ const SignUpScreen = ({ }: Props) => {
                                         value={value}
                                         keyboardType='email-address'
                                         onChangeText={onChange}
-                                        className='rounded-full pl-6'
+                                        className='rounded-full pl-6 bg-white text-black'
                                     />
                                 )}
                             />
-                            {errors.userEmail?.type == "required" && <Text className='text-red-500 text-sm my-1'>Please enter your full name</Text>}
+                            {errors.userEmail?.type == "required" && <Text className='text-red-500 text-sm my-1'>Please enter your email address</Text>}
                         </View>
 
                         <View>
@@ -136,11 +139,11 @@ const SignUpScreen = ({ }: Props) => {
                                         placeholderTextColor={"#EAEAEA"}
                                         value={value}
                                         onChangeText={onChange}
-                                        className='rounded-full pl-6'
+                                        className='rounded-full pl-6 bg-white text-black'
                                     />
                                 )}
                             />
-                            {errors.userPass?.type == "required" && <Text className='text-red-500 text-sm my-1'>Please enter your full name</Text>}
+                            {errors.userPass?.type == "required" && <Text className='text-red-500 text-sm my-1'>Please enter your password</Text>}
                         </View>
 
                         <View>
@@ -153,7 +156,7 @@ const SignUpScreen = ({ }: Props) => {
                                         placeholderTextColor={"#EAEAEA"}
                                         value={value}
                                         onChangeText={onChange}
-                                        className='rounded-lg pl-6'
+                                        className='rounded-lg pl-6 bg-white text-black'
                                     />
                                 )}
                             />

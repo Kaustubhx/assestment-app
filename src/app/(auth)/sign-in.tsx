@@ -83,14 +83,14 @@ const SignInScreen = ({ }: Props) => {
                                     placeholderTextColor={"#EAEAEA"}
                                     value={value}
                                     onChangeText={onChange}
-                                    className='rounded-full pl-6'
+                                    className='rounded-full pl-6 bg-white text-black'
                                 />
                             )}
                         />
                         {errors.userCred?.type === "required" ? (
                             <Text className='text-red-500 my-1'>Please enter your credentials</Text>
                         ) : (
-                            <Text className='text-red-500 mt-1'>{errors.userCred?.message}</Text>
+                            <Text className='text-red-500 mt-1'>{errors.userCred?.message?.toString()}</Text>
                         )}
                     </View>
 
@@ -107,7 +107,7 @@ const SignInScreen = ({ }: Props) => {
                                     placeholderTextColor={"#EAEAEA"}
                                     value={value}
                                     onChangeText={onChange}
-                                    className='rounded-full pl-6'
+                                    className='rounded-full pl-6 bg-white text-black'
                                 />
                             )}
                         />
@@ -128,7 +128,7 @@ const SignInScreen = ({ }: Props) => {
                     </Button>
 
                     <View className='flex-row items-center'>
-                        <Text adjustsFontSizeToFit>Don&apos;t have an account?{" "}</Text>
+                        <Text adjustsFontSizeToFit className='text-black'>Don&apos;t have an account?{" "}</Text>
                         <Button
                             className='p-0'
                             variant={"ghost"}
